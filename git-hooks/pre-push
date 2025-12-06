@@ -1,0 +1,19 @@
+#!/bin/bash
+# --- git-hooks/pre-push ---
+# Empêche le push direct sur main ou dev
+
+# Lecture de la référence actuelle (branche locale) et de la cible distante
+while read local_ref local_sha remote_ref remote_sha
+do
+  branch_name=$(git rev-parse --abbrev-ref HEAD)
+
+  # Bloque si on tente de pousser directement sur main ou dev
+  if [[ "$branch_name" == "main" || "$branch_name" == "dev" ]]; then
+    echo "❌ Push direct sur '$branch_name' interdit !"
+    echo "👉 Crée une branche de fonctionnalité, par ex : feat/ma-fonction"
+    exit 1
+  fi
+done
+
+echo "✅ Vérification pre-push réussie : branche autorisée."
+exit 0

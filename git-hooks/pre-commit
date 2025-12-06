@@ -1,0 +1,23 @@
+#!/bin/bash
+# Empêche les commits directs sur main et dev
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+
+if [[ "$branch" == "main" || "$branch" == "dev" ]]; then
+  echo "❌ Vous ne pouvez pas committer directement sur la branche '$branch'."
+  echo "👉 Veuillez créer une feature branch (ex: feat/ma-fonctionnalite)"
+  exit 1
+fi
+
+echo "🔍 Lancement des tests unitaires et d'intégration..."
+export MAVEN_OPTS="-Dfile.encoding=UTF-8"
+./mvnw test -Dtest='*Test,!*E2ETest'
+result=$?
+
+if [ $result -ne 0 ]; then
+  echo "❌ Certains tests ont échoué. Commit annulé."
+  exit 1
+else
+  echo "✅ Tous les tests unitaires et d'intégration sont passés !"
+fi
+exit 0

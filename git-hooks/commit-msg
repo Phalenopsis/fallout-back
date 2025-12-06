@@ -1,0 +1,18 @@
+#!/bin/bash
+# Vérifie le format du message de commit
+
+commit_message_file=$1
+commit_message=$(head -n 1 "$commit_message_file")
+
+if ! [[ "$commit_message" =~ ^(feat|fix|style|config|test|doc)(\(.+\))?:\  ]]; then
+  echo "❌ Message de commit invalide."
+  echo "👉 Format attendu : 'feat: message' ou 'fix: message' ou 'style: message' ou 'config: message'"
+  echo "Exemples :"
+  echo "   feat: ajouter la création de compte"
+  echo "   fix: corriger le bug d’authentification"
+  echo "   style: améliorer le formatage du code"
+  echo "   config: mettre à jour la configuration du CI"
+  exit 1
+fi
+
+exit 0

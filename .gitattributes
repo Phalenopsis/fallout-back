@@ -1,0 +1,4 @@
+/mvnw text eol=lf
+*.cmd text eol=crlf
+*.sh text eol=lf
+git-hooks/* text eol=lf

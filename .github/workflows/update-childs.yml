@@ -1,0 +1,98 @@
+name: Propagate Template Updates (Incremental)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-children:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout template
+        uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Get list of changed files
+        id: changes
+        run: |
+          echo "🧩 Checking for changed files..."
+
+          # Si c’est le premier commit (HEAD~1 n’existe pas)
+          if git rev-parse HEAD~1 >/dev/null 2>&1; then
+            FILES=$(git diff --name-only HEAD~1 HEAD)
+          else
+            FILES=$(git ls-tree --name-only -r HEAD)
+          fi
+
+          echo "Changed files:"
+          echo "$FILES"
+
+          # Export dans le contexte GitHub Actions proprement
+          {
+            echo "CHANGED_FILES<<EOF"
+            echo "$FILES"
+            echo "EOF"
+          } >> "$GITHUB_ENV"
+
+      - name: Update children repos
+        env:
+          CHILD_REPOS: ${{ secrets.CHILD_REPOS }}
+          CHILD_PAT: ${{ secrets.PAT }}
+          CHANGED_FILES: ${{ env.CHANGED_FILES }}
+        run: |
+          for repo in $CHILD_REPOS; do
+            echo "Updating $repo"
+
+            # Cloner le repo enfant
+            git clone https://x-access-token:$CHILD_PAT@github.com/$repo.git
+            cd $(basename $repo)
+
+            # Nom de branche unique pour template
+            BRANCH="update-from-template"
+
+            # Créer ou basculer sur la branche
+            if git show-ref --verify --quiet refs/heads/$BRANCH; then
+              git checkout $BRANCH
+            else
+              git checkout -b $BRANCH
+            fi
+
+            # Copier uniquement les fichiers modifiés
+            for file in $CHANGED_FILES; do
+              mkdir -p $(dirname "$file")
+              cp -r ../$file "$file" || echo "File $file does not exist in template"
+            done
+
+            git add .
+
+            # Commit si nécessaire
+            if ! git diff-index --quiet HEAD; then
+              git commit -m "Update from template (incremental)"
+              git push origin $BRANCH
+
+              # Vérifier s'il existe déjà une PR ouverte
+              PR_EXIST=$(curl -s -H "Authorization: token $CHILD_PAT" \
+                -H "Accept: application/vnd.github+json" \
+                "https://api.github.com/repos/$repo/pulls?head=$(basename $repo):$BRANCH&base=dev" | jq '. | length')
+
+              if [ "$PR_EXIST" -eq "0" ]; then
+                # Créer une PR si elle n'existe pas
+                curl -s -X POST \
+                  -H "Authorization: token $CHILD_PAT" \
+                  -H "Accept: application/vnd.github+json" \
+                  https://api.github.com/repos/$repo/pulls \
+                  -d "{\"title\":\"Mise à jour depuis le template\",\"head\":\"$BRANCH\",\"base\":\"dev\",\"body\":\"PR automatique depuis le template (incremental).\"}"
+              else
+                echo "PR already exists for $repo"
+              fi
+            else
+              echo "No changes to commit for $repo"
+            fi
+
+            cd ..
+          done
