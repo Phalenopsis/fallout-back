@@ -9,6 +9,20 @@ if [[ "$branch" == "main" || "$branch" == "dev" ]]; then
   exit 1
 fi
 
+# 2. Vérifie que la branche commence par l’un des préfixes autorisés
+if [[ ! "$branch" =~ ^(feat|fix|config|doc)\/.+ ]]; then
+  echo "❌ Nom de branche invalide : '$branch'"
+  echo "👉 Les branches doivent commencer par : feat/, fix/, config/, doc/"
+  echo "   Exemples valides :"
+  echo "     feat/ajout-auth"
+  echo "     fix/correction-bug-42"
+  echo "     config/docker-setup"
+  echo "     doc/mise-a-jour-readme"
+  exit 1
+fi
+
+echo "✔ Nom de branche valide : $branch"
+
 echo "🔍 Lancement des tests unitaires et d'intégration..."
 export MAVEN_OPTS="-Dfile.encoding=UTF-8"
 ./mvnw test -Dtest='*Test,!*E2ETest'

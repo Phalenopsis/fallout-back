@@ -1,6 +1,6 @@
-package eu.nicosworld.authentication.authentication.model;
+package eu.nicosworld.falloutback.authentication.model;
 
-public class UserLoginDTO {
+public class UserRegistrationDTO {
     private String email;
     private String password;
 
@@ -19,5 +19,4 @@ public class UserLoginDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

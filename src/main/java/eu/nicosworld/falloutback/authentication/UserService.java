@@ -1,7 +1,7 @@
-package eu.nicosworld.authentication.authentication;
+package eu.nicosworld.falloutback.authentication;
 
-import eu.nicosworld.authentication.authentication.model.User;
-import eu.nicosworld.authentication.exception.EmailAlreadyUsed;
+import eu.nicosworld.falloutback.authentication.model.User;
+import eu.nicosworld.falloutback.exception.EmailAlreadyUsed;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

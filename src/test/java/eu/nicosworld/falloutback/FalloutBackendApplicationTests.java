@@ -1,10 +1,10 @@
-package eu.nicosworld.authentication;
+package eu.nicosworld.falloutback;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AuthenticationApplicationTests {
+class FalloutBackendApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,8 +1,8 @@
-package eu.nicosworld.authentication.authentication;
+package eu.nicosworld.falloutback.authentication;
 
-import eu.nicosworld.authentication.AbstractE2ETest;
-import eu.nicosworld.authentication.authentication.model.UserLoginDTO;
-import eu.nicosworld.authentication.authentication.model.UserRegistrationDTO;
+import eu.nicosworld.falloutback.AbstractE2ETest;
+import eu.nicosworld.falloutback.authentication.model.UserLoginDTO;
+import eu.nicosworld.falloutback.authentication.model.UserRegistrationDTO;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;

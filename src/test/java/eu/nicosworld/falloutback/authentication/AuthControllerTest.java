@@ -1,12 +1,12 @@
-package eu.nicosworld.authentication.authentication;
+package eu.nicosworld.falloutback.authentication;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.nicosworld.authentication.config.security.JwtService;
-import eu.nicosworld.authentication.authentication.model.UserLoginDTO;
-import eu.nicosworld.authentication.authentication.model.UserRegistrationDTO;
-import eu.nicosworld.authentication.authentication.model.User;
-import eu.nicosworld.authentication.exception.EmailAlreadyUsed;
+import eu.nicosworld.falloutback.config.security.JwtService;
+import eu.nicosworld.falloutback.authentication.model.UserLoginDTO;
+import eu.nicosworld.falloutback.authentication.model.UserRegistrationDTO;
+import eu.nicosworld.falloutback.authentication.model.User;
+import eu.nicosworld.falloutback.exception.EmailAlreadyUsed;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.impl.DefaultClaims;
 import jakarta.servlet.http.Cookie;

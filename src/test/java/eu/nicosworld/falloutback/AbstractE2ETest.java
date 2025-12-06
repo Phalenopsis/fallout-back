@@ -1,4 +1,4 @@
-package eu.nicosworld.authentication;
+package eu.nicosworld.falloutback;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;

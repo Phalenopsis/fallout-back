@@ -1,6 +1,6 @@
-package eu.nicosworld.authentication.authentication;
+package eu.nicosworld.falloutback.authentication;
 
-import eu.nicosworld.authentication.authentication.model.User;
+import eu.nicosworld.falloutback.authentication.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
