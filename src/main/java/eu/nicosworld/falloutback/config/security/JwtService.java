@@ -1,6 +1,6 @@
-package eu.nicosworld.authentication.config.security;
+package eu.nicosworld.falloutback.config.security;
 
-import eu.nicosworld.authentication.authentication.model.User;
+import eu.nicosworld.falloutback.authentication.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;

@@ -1,6 +1,6 @@
-package eu.nicosworld.authentication.authentication;
+package eu.nicosworld.falloutback.authentication;
 
-import eu.nicosworld.authentication.config.security.JwtService;
+import eu.nicosworld.falloutback.config.security.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

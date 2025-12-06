@@ -1,4 +1,4 @@
-package eu.nicosworld.authentication;
+package eu.nicosworld.falloutback;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

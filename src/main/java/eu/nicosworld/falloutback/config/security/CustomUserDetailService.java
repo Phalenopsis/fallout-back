@@ -1,7 +1,7 @@
-package eu.nicosworld.authentication.config.security;
+package eu.nicosworld.falloutback.config.security;
 
-import eu.nicosworld.authentication.authentication.UserRepository;
-import eu.nicosworld.authentication.authentication.model.User;
+import eu.nicosworld.falloutback.authentication.UserRepository;
+import eu.nicosworld.falloutback.authentication.model.User;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

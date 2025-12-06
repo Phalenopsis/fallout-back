@@ -1,4 +1,4 @@
-package eu.nicosworld.authentication.authentication.model;
+package eu.nicosworld.falloutback.authentication.model;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
