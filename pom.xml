@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>eu.nicosworld</groupId>
-	<artifactId>authentication</artifactId>
+	<artifactId>fallout-back</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>authentication</name>
-	<description>Authentication for Spring Boot</description>
+	<name>Back for Fallout JDR</name>
+	<description>Spring Boot backend for Fallout JDR</description>
 	<url/>
 	<licenses>
 		<license/>
