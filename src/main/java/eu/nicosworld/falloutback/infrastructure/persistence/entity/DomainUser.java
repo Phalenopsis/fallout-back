@@ -4,7 +4,7 @@ import eu.nicosworld.falloutback.authentication.model.User;
 import jakarta.persistence.*;
 
 @Entity
-public class AuthenticatedUser {
+public class DomainUser {
 
     @Id
     private Long id;
@@ -13,9 +13,9 @@ public class AuthenticatedUser {
     @MapsId
     private User user;
 
-    public AuthenticatedUser() {}
+    public DomainUser() {}
 
-    public AuthenticatedUser(User user) {
+    public DomainUser(User user) {
         this.user = user;
     }
 
