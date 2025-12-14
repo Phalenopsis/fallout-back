@@ -20,8 +20,10 @@ public class DomainUserController {
     }
 
     @GetMapping
-    public DomainUserDto getSmoked(@AuthenticationPrincipal UserDetails userDetails) {
+    public DomainUserDto getCurrentUser(@AuthenticationPrincipal UserDetails userDetails) {
         DomainUser user = this.domainUserService.findByUser(userDetails);
+        System.out.println("DEBUG");
+        System.out.println(DomainUserDto.mapFromEntity(user));
         return DomainUserDto.mapFromEntity(user);
     }
 }
