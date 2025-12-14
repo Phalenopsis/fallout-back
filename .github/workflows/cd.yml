@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - staging
 
 jobs:
 
@@ -31,7 +32,11 @@ jobs:
       - name: Set Docker image tag
         id: set_tag
         run: |
-          echo "tag=production" >> "$GITHUB_OUTPUT"
+          if [[ "${GITHUB_REF##*/}" == "main" ]]; then
+            echo "tag=production" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=staging" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Build and Push Docker image
         uses: docker/build-push-action@v5
