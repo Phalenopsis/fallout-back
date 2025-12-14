@@ -35,22 +35,36 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+        return http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
-                .exceptionHandling(
-                        ex ->
-                                ex.authenticationEntryPoint(
-                                        (request, response, authException) ->
-                                                response.sendError(
-                                                        HttpServletResponse.SC_UNAUTHORIZED)) // renvoie 401 si pas de token
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                // ⚠️ NE PAS forcer le status ici pour tout
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            // seulement si Spring Security décide que c'est un problème d'auth
+                            response.sendError(
+                                    HttpServletResponse.SC_UNAUTHORIZED,
+                                    authException.getMessage()
+                            );
+                        })
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.sendError(
+                                    HttpServletResponse.SC_FORBIDDEN,
+                                    accessDeniedException.getMessage()
+                            );
+                        })
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement(
-                        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
                 .build();
     }
+
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {

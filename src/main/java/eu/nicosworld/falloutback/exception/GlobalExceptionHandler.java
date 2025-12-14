@@ -1,5 +1,6 @@
 package eu.nicosworld.falloutback.exception;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,4 +22,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 Map.of("error", ex.getMessage()));
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Map<String, String>> handleGeneric(Exception ex) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Internal server error"));
+    }
+
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity<Map<String, String>> handleDatabase(DataAccessException ex) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Database error"));
+    }
+
 }
