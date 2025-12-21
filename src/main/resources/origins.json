@@ -1,0 +1,259 @@
+[
+  {
+    "name": "InitiateOfTheBrotherhood",
+    "nom": "Initié de la confrérie",
+    "histoire": [
+      "Née des terribles révélations issues de la rébellion à la base militaire de Mariposa, la Confrérie de l'Acier a éfé fondée par Roger Maxson afin que son peuple (et au bout du compte,chaque survivant de ce nouveau monde) ait quelque chose en quoi croire.",
+      "Dotée de sa propre mythologie, de son propre crédo et de sa propre hiérarchie, la Confrérie de l'Acier a un but principal: récupérer et préserver la technologie du monde d'avant-guerre.",
+      "La Grande Guerre a perturbé l'accès de l'humanité à la technologie: les chevaliers et scribes de la Confrérie font tout leur posssible pour sécuriser les progrès du passé,  afin que les générations futures en bénéficient.",
+      "Vous pouvez être le descendant d'un chevalier ou d'un paladin, né dans la Confrérie et fervent défenseur de sa doctrine, ou vous pouvez être une jeune recrue, vouée à sa cause et désireuse de gravir ses échelons",
+      "Bien sur les membres de la Confrérie partagnet un même but, les différents chapitres qui la composent, répartis à travers les Terres désolées, peuvent avoir des croyances et des protocoles distincts, et ils ne sont pas aussi unis qu'il le semble.",
+      "La Confrérie de l'Acier de la côte ouest était en guerre contre la République de Nouvelle Californie pour récupérer des technologies et empêcher la RNC de s'étendre.",
+      "Pendant ce temps, le chapitre de la côte est était isolé et préférait faire preuve de charité plutôt que d'échanger des technologies et préserver l'équipement d'avant-guerre.",
+      "La mission de l'Ainé Lyon devint humanitaire et bien que cela valut au chapitre une marginalisation forcée au début, Arthur Maxson lui permit d'étendre son influence de Washington D.C à toute la côte est, en recentrant ses efforts sur la récupération et le développement de technologies."
+    ],
+    "traitAChoisir": [
+      "Armes à énergie",
+      "Science",
+      "Réparation"
+    ],
+    "handicap": "quelque chose d'handicapant"
+  },
+  {
+    "name": "Ghoul",
+    "nom": "Goule",
+    "histoire": [
+      "Une explosion prolongée aux effets des radiations gamma de fond(une partie des retombées de la Grande Guerre) peut faire muter les humains de manière spontanée.",
+      "Vous êtes l'un de ces mutants. Lentement ou d'une manière aussi spectaculaire que spontanée, votre corps a changé et est devenu celui d'un cadavre ambulant et pourrissant.",
+      "Vous ne viellissez plus comme avant et les radiations ne vous affectent pas. Votre peau pèle et laisse apparaître votre chair, mais votre métabolisme mutant semble suffire à la remplacer",
+      "Vous êtes une goule (un post-humain nécrotique), l'un des nombreux survivants qui n'ont pas eu la chance de pouvoir s'abriter dans l'un des complexes de Vault-tec.",
+      "Etes vous né après la guerre et avez -vous développé la mutation nécrotique au fil du temps? Venez-vous de l'abri 12 à Bakersfield, Californie, dont la porte ne s'est pas fermée, ce qui a exposé la population aux radiations de l'extérieur?",
+      "Avez-vous trouvé refuge dans un campement de goules, comme l'Underworld des Terres désolées de la Capitale et vous êtes-vous aventuré tout récemment à l'extérieur pour explorer ces contrées, les fouiller et y survivre?",
+      "Les goules civilisées telles que vous craignet une possible dégénérescence vers une créature bestiale et violente. Les goules sauvages sont des mutants nécrotiques, comme vous, mais elles ont perdu leurs fonctions cérébrales supérieures et sont retournées à un état de violence primaire.",
+      "Elles attaquent sans distinction toute créature qui n'est pas une goule afin de défendre leur territoire ou se nourrir. Vous ne savez pas si cette perte de contrôle résulte de hauts niveaux de radiation ou, somme toute, de la mutation, ce qui la rend encore plus terrifiante."
+    ],
+    "atout": "Survie",
+    "trait": [
+      "necroticPostHuman"
+    ],
+    "bonusCompetence": {
+      "Survie": 2
+    },
+    "immunite": [
+      "Radiation"
+    ],
+    "handicap": "Un malus en Charisme est possible selon la croyance de l'interlocuteur"
+  },
+  {
+    "name": "Super Mutant",
+    "nom": "Super Mutant",
+    "histoire": [
+      "Vous êtes un humain mutant et brutal, dont l'évolution a été forcée par des expérimentations indélicates menées par les savants fous du monde d'avant ou d'après guerre.",
+      "Infecté par le virus à évolution forcée (V.E.F.), votre corps a muté et est devenu une gigantesque machine à tuer, musculeuse remplie de rage",
+      "Vous pouvez venir de l'armée du Maître, dans la base militaire de Mariposa en Californie, créée lorsqu'il pratiquait ses expériences sur des victimes humaines non consentantes et divisée en plusieurs factions à sa mort (chacun de ses groupes de survivants se consacrant à attaquer ou reconstruire les Terres désolées).",
+      "Ou bien vous êtes issu du programme d'expérimentation évolutionnaire de l'Abri 87, dont les bandes de super mutants terrorisent les Terres désolées de la Capitale.",
+      "Ou encore, vous avez été enlevé dans le Commonwealth et exposé au V.E.F. par l'Institut, avant qu'il vous renvoie dans les Terres désolées vous débrouiller en petits groupes de pillards.",
+      "Enfin, vous pouvez tout aussi bien être un résident de Huntersville, dans les Appalaches, où le virus a contaminé la réserve d'eau, entraînant des mutations non contrôlées.",
+      "Bien que tous les super mutants partagent les mêmes particularités, les groupes formées par ces quatre souches ne se sont jamais mélangés et les preuves d'une rencontre entre membres de bandes différentes restent rares.",
+      "Même si certains d'entre eux ont migré ou voyagé au cours de leur existence, aucun n'est allé assez loin pour croiser l'un de ses homologues. Par conséquent, l'endroit où commence votre quête influencera votre origine."
+    ],
+    "modificateurStats": [
+      {
+        "Force": 2
+      },
+      {
+        "Endurance": 2
+      }
+    ],
+    "maximumStats": [
+      {
+        "Force": 12
+      },
+      {
+        "Endurance": 12
+      },
+      {
+        "Intelligence": 6
+      },
+      {
+        "Charisme": 6
+      }
+    ],
+    "limitateurCompetence": 4,
+    "immunite": [
+      "Radiation",
+      "Poison"
+    ],
+    "handicap": "Les seules armures que vous pouvez porter doivent être spécialement conçues pour les super mutants."
+  },
+  {
+    "name": "Mister Handy",
+    "nom": "Mister Handy",
+    "histoire": [
+      "Le robot de construction Mister Handy, de Général Atomics International, a explosé sur le marché de la robotique grâce à sa fiabilité, sa robustesse et sa facilité d'entretien.",
+      "Néanmoins, son véritable essor découle de la collaboration avec RobCo qui produisit un modèle domestique.",
+      "Vous êtes l'un de ces automates domestiques, produit entre 2037 et 2077 dans le but d'assurer à chaque foyer des Etats-Unis un majordome loyal.",
+      "Equipé d'une programmation à la pointe de la technologie, vous êtes doué d'initiative et pouez adapter votre code pour tirer des leçons de votre environnement.",
+      "Cette capacité à l'autodétermination vous a permis de survivre à la Grande Guerre; contrairement à d'autres robots qui ont pu être détruits, vous avez réussi à vous débarrasser des entraves de botre programmation pour vivre votre vie.",
+      "De nombreux modèles existent et vous pouvez être issu de n'importe quelle série de Mister Handy, Mister Gusty, Miss Nanny ou Mister Orderly. Un réacteur nucléaire vous alimente et vous pouvez vous-même faire le plein de carburant.",
+      "Vous pouvez vous réparer, ainsi que réparer les autres unités Mister Handy. Votre modèle dispose de trois bras mécaniques ainsi que de trois yeux au bout de tiges.",
+      "Votre propulseur vous maintient en l'air, tant que vous avz du carburant. Cette conception robuste vous a permis de survivre jusqu'ici.",
+      "Capacité a modifier l'armure sous réparation avec l'aptitude armurier"
+    ],
+    "trait": [
+      "improvedPerception",
+      "propulsion"
+    ],
+    "immunite": [
+      "Radiation",
+      "Poison"
+    ],
+    "limitation": {
+      "Charge maximale": 75
+    },
+    "accessoireBras": [
+      "Emetteur Laser",
+      "Lance-flammes",
+      "Pince",
+      "Pistolet automatique 10 mm",
+      "Scie circulaire"
+    ]
+  },
+  {
+    "name": "Survivor",
+    "nom": "Survivant",
+    "histoire": [
+      "Vous êtes le descendant de personnes qui se sont préparées seules pour l'Armageddon.",
+      "Vous ne devez votre existence dans le pasage apocalyptique postnucléaire qu'à vos ancêtres, lesqueles se sont retranchée, ont survécu et ont trouvé une communauté suffisamment importante pour perpétuer l'espèce humaine.",
+      "Vous pouvez être originaire d'un des nombreux groupes de voyageurs, colonies ou abris isolés qui peuplent de manière sporadique les Terres désolées entre les côtes est et ouest.",
+      "Vous pouvez venir de la République de Nouvelle Californie, perpétuant l'héritage de l'Abri 15 et des Sables ombragés.",
+      "Vous battez-vous pour protéger autrui, en faisant partie d'un groupe de survivants comme les Miliciens ou les Régulateurs?",
+      "Vous pouvez tout aussi bien être membre d'une bande de pillards sans pitié, ou vous être échappé d'une de ces bandes pour faire amende honorable.",
+      "Quelle que soit votre origine, quelle que soit votre destination, créer des liens et poser vos bagages peut être ardu.",
+      "Naturellement, les survivants se méfient les uns des autres et restent à l'affût du prochain escroc, groupe de pillards ou voleur qui cherchera à s'emparer de leurs ressources acquises à la sueur de leur front.",
+      "Voyager sur de longues distances est tout aussi difficile et de nombreux survivants nomades, en particulier les marchands et leur caravane, se déplacent entre les grandes communautés de leur région, préférant éviter de parcourir le continent de long en large"
+    ],
+    "traitAChoisir": [
+      "Doué",
+      "Education",
+      "Gringalet",
+      "Main lourde",
+      "Tir rapide"
+    ]
+  },
+  {
+    "name": "ShelterDweller",
+    "nom": "Habitant de l'abri",
+    "histoire": [
+      "Quand les bombes sont tombées, vous ou vos ancêtres avez été assez chanceux pour vous replier en sûreté dans l'un des cent-vingt-deux complexes de Vault-Tec enfouis sous terre et protégés par d'épaisses portes anti-explosion, des couches de roche et des mètres de béton.",
+      "Soit votre famille était assez riche pour se payer une place, soit elle a été tirée au sort pour pouvoir entrer dans l'abri et survivre à la dévastation nucléaire qui se déroulait au-dehors...",
+      "Mais ce n'était peut-être qu'une condamnation à subir les expériences immorales que Vault-Tec conduisit sur des participants involontaires.",
+      "Vous ne connaissez ni les mutations ni la maladie. Le programme Vault-Tec vous a offert une demeure sûre pendant un temps, mais vous avez dû en payer le prix.",
+      "Vous avez été un sujet test et l'on a manipulé votre compréhension du monde ainsi que votre comportement ain de vous étudier.",
+      "Lorsque vous vous comparez aux habitants de la surface que vous avez appris à connaître, vous constatez que vous avez gardé de profondes séquelles psychologiques, ce qui affecte votre parcours dans les Terres désolées.",
+      "A dessein ou à la suite d'une mauvaise organisation préalable, nombre d'Abris ne disposaient pas d'assez de ressources ou n'était pas assez préparés pour attendre de longues années que les retombées nucléaires aient atteint, à l'exterieur, un niveau inoffensif.",
+      "Ainsi, la plupart d'entre eux tombèrent en panne ou à court de ressources. Ces problèmes poussèrent de nombreux habitants d'abri à chercher de l'aide à la surface et maints complexes ouvrirent leur porte pour permettre aux ressources d'entrer.",
+      "Dès lors, ces sociétés isolées se mêlèrent aux survivants de la surface et établirent un lien permanent avec cette dernière.",
+      "L'exemple le plus notable est celui de l'Abri 15, dont les résidents se séparèrent et fondèrent les Sables ombragés, ainsi que les bandes de pillards nommées Jackals, Vipers et Khans."
+    ],
+    "traitAChoisir": [
+      "un atout au choix rang 2"
+    ],
+    "handicap": "Une expérience malheureuse"
+  },
+  {
+    "name": "ThirdGenerationSynth",
+    "nom": "Synthé de 3ème génération",
+    "histoire": [
+      "Vous êtes un humanoïde biosynthétique presque indiscernable d'un humain. Une organisation scientifique secrète nommée l'Institut vous a conçu pour vous intégrer à la société humaine.",
+      "Votre corps, cultivé en laboratoire, est composé de chair, d'os et d'organes humains; un implant cybernétique indéfectable dans votre cerveau contient votre programmation.",
+      "Vos améliorations bioconçues vous rendent plus résistant qu'un humain, et votre âge comme votre corpulence ne changent jamais.",
+      "Vous pouvez rester en activité longtemps sans avoir besoin de repos, ce qui s'avère un excellent avantage dans des Terres désolées si rudes.",
+      "De plus, votre corps accepte les implants synthétiques et les modifications cybernétiques sans complications.",
+      "Les synthés 3G ne forment pas un groupe homogène: vous pouvez en rencontrer d'autres  mais ils ne se montreront pas forcément amicaux",
+      "Peut-être avez-vous échappé à l'Institut pour vivre la vie à votre façon. Ou avez-vous été envoyé dans la société humaine dans un but précis?",
+      "Programmé pour croire sincérement que vous êtes humain? Avez-vous une idée de qui vous êtes? A moins que vous ne souffriez d'amnésie.",
+      "De nombreuses personnes craignent les synthés et l'Institut: préserver votre identité secrète est donc essentiel à votre survie.",
+      "Vous avez peut-être plusieurs noms, comme votre identité humaine et votre numéro de synthétique.",
+      "Votre quête de sens et d'identité dans un monde qui vous redoute ou vous mécomprend est essentielle.",
+      "Vous ne dormez pas, pendant ce temps à la place vous vous lancez dans de petites activités, comme l'artisanat, la lecture ou la reconnaissance légère."
+    ],
+    "traitAChoisir": [
+      "un atout au choix rang 2"
+    ],
+    "immunite": [
+      "Poison",
+      "Radiation",
+      "Maladie",
+      "Soif",
+      "Faim"
+    ],
+    "handicap": "Ne bénéficient pas des effets de nourriture et boisson",
+    "malus": "+2 à la difficulté au test de Chr"
+  },
+  {
+    "name": "Protectron",
+    "nom": "Protectron",
+    "histoire": [
+      "Fabriqué par Robco Industries en guise de robot de travail abordable, votre modèle était l'un des automates les plus populaires de la compagnie; il a d'ailleurs mis au chômage bien des Américains avant la Grande Guerre.",
+      "Les protections étaient conçus pour divers taches de construction, de sécurité ou d'administration.",
+      "Les modèles d'usine servaient au travail manuel; les modèles de bureau étaient programmés avec des logiciels administratif intégrés; les modèles de lutte incendie utilisaient des cryojets pour éteindre les feux dangereux;",
+      "les modèles de soins disposaient de défibrillateurs de série; les modèles de police possédaient une meilleure armure et des tasers améliorés afin de maîtriser les foules.",
+      "Vous appartenez à l'une de ces gammes, ou à une tout autre.",
+      "Votre silhouette humanoïde est recouverte d'un blindage léger. Bien que vous n'ayez pas été conçu pour le combat, les Terres désolées regorgent de ressources que vous pouvez utiliser pour vous défendre et protéger autrui.",
+      "Vous parlez avec le timbre monocorde et robotique des autres Protectrons, à moins d'avoir reçu une amélioration logicielle ou matérielle.",
+      "La plupart des protections font tout leur possible ou presque pour défendre celles et ceux qui leur programmation qualifie d'alliés.",
+      "Votre création remonte à bien longtemps. Peut-être étiez-vous un robot ouvrier, mais vous êtes désormais bien plusque cela.",
+      "Votre programmation originelle détermine encore votre attitude et vos actions, mais elle a pu se désagréger ou se corrompre.",
+      "Seriez-vous l'un des rares Protections qui ont atteint la véritable conscience de soi et résistent à leur programmation?",
+      "Dans les terres sauvages et désolées, c'est à vous de décider si votre ancienne programmation vous définit, ou si vous définissez votre identité par vos propres directives.",
+      "Vous ne pouvez pas guérir vos blessures ou récupérer des points de vie sans réparations"
+    ],
+    "trait": [
+      "protectron"
+    ],
+    "immunite": [
+      "Poison",
+      "Radiation",
+      "Maladie",
+      "Soif",
+      "Faim"
+    ],
+    "handicap": "Ne bénéficient pas des effets de nourriture et boisson",
+    "amelioration": "Pas plus de 2 mods de robot installés.",
+    "limitation": {
+      "Charge maximale": 113
+    }
+  },
+  {
+    "name": "ChildOfAtom",
+    "nom": "Enfant d'Atome",
+    "histoire": [
+      "Les radiations sont un don de votre dieu atomique, et vous vous faites une joie de partager ce don avec le Commonwealth. En tant que membre de l'Eglise d'Atome, votre corps et votre esprit sont bénis par les radiations.",
+      "Même si la plupart des personnes que vous rencontrez s'inquiètent pour vous et considèrent votre bénédiction comme une malédiction, vous vous savez élu.",
+      "Plus vous vous approchez de l'teinte d'Atome, plus vous vous épanouissez face aux épreuves des Terres désolées.",
+      "Vous comprenez que les radiations restent dangereuses pour quiconque n'a pas encore accepté leur vérité divine, et vous ne méprisez personne pour l'utilisation du RadAway ou d'autres traitements.",
+      "Vous cherchez juste à aider le monde à atteindre l'illumination.",
+      "Le dogme de votre religion stipule que chaque masse atomique de la création renferme un univers entier. Quand elle se divise, l'univers qu'll contient fait de même et devient double.",
+      "Atome est révéré comme un dieu bienveillant qui utilise la Division pour créer de nouveaux mondes. Dès lors, les Enfants voient dans la Grande Guerre un événement sacré et merveilleux.",
+      "Ils vénérent Atome en vénérant les radiations -Sa Lueur- et les univers nouvellement nés qu'elle représente. Les Enfants établissent leur foyer dans les régions irradiées et y construisent des colonies et des centres d'adoration.",
+      "L'Eglise, quoique non violente, considère comme un blasphème les tentatives visant à stopper le développement des radiations. Ses membres s'opposent à de tels efforts, même si les tactiques de chaque secte, voire de chaque individu, varient.",
+      "Les Enfants ne s'attachent pas vraiment à leurs possessions ou même à leur corps, et ils sont souvent très généreux envers les personnes dans le besoin.",
+      "Ils respectent la hiérarchie très vague de leur secte, centrée sur des chefs spirituels appelés -Mères- ou -Confesseurs-",
+      "Etes vous né dans l'Eglise, ou viviez-vous une vie totalement différente avant de découvrir la vérité atomique? Peut-être venez-vous d'une secte très éloignée: vous seriez alors en pélerinage saint.",
+      "A moins que vous ne soyez originaire du cratère d'Atome, dans la Mer luminescente?",
+      "Si vous gardez la foi, partagez la Lueur avec les personnes que vous rencontrez et montrez votre dévouement envers Atome, vous prouverez peut-être votre valeur et atteindrez ainsi un rang plus élevé dans la secte."
+    ],
+    "traitAChoisir": [
+      "une aptitude supplémentaire rang 1"
+    ],
+    "trait": [
+      "radiationSponge"
+    ],
+    "resistanceRadiation": 1,
+    "handicap": "Ne bénéficient pas des effets de nourriture et boisson",
+    "reputation": {
+      "Dernier fils d'Atome": "rang 2"
+    }
+  }
+]
