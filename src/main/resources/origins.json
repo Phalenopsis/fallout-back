@@ -45,7 +45,7 @@
     "handicap": "Un malus en Charisme est possible selon la croyance de l'interlocuteur"
   },
   {
-    "name": "Super Mutant",
+    "name": "SuperMutant",
     "nom": "Super Mutant",
     "histoire": [
       "Vous êtes un humain mutant et brutal, dont l'évolution a été forcée par des expérimentations indélicates menées par les savants fous du monde d'avant ou d'après guerre.",
@@ -59,24 +59,30 @@
     ],
     "modificateurStats": [
       {
-        "Force": 2
+        "stat":  "Force",
+        "value" : 2
       },
       {
-        "Endurance": 2
+        "stat" : "Endurance",
+        "value" : 2
       }
     ],
     "maximumStats": [
       {
-        "Force": 12
+        "stat" : "Force",
+        "value" : 12
       },
       {
-        "Endurance": 12
+        "stat" : "Endurance",
+        "value" : 12
       },
       {
-        "Intelligence": 6
+        "stat" : "Intelligence",
+        "value" : 12
       },
       {
-        "Charisme": 6
+        "stat" : "Charisme",
+        "value" : 6
       }
     ],
     "limitateurCompetence": 4,
@@ -87,7 +93,7 @@
     "handicap": "Les seules armures que vous pouvez porter doivent être spécialement conçues pour les super mutants."
   },
   {
-    "name": "Mister Handy",
+    "name": "MisterHandy",
     "nom": "Mister Handy",
     "histoire": [
       "Le robot de construction Mister Handy, de Général Atomics International, a explosé sur le marché de la robotique grâce à sa fiabilité, sa robustesse et sa facilité d'entretien.",
