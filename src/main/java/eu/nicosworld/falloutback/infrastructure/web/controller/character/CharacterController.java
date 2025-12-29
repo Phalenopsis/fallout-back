@@ -5,10 +5,7 @@ import eu.nicosworld.falloutback.infrastructure.persistence.entity.character.Cha
 import eu.nicosworld.falloutback.infrastructure.web.dto.character.CharacterDto;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("character")
@@ -26,7 +23,23 @@ public class CharacterController {
     public CharacterDto saveCharacter(@AuthenticationPrincipal UserDetails userDetails,
                                       @RequestBody CharacterDto characterDto
     ) {
+        System.out.println(characterDto.originName());
         Character character = characterService.save(characterDto, userDetails);
         return CharacterDto.mapFromEntity(character);
+    }
+
+    @GetMapping("/{id}")
+    public CharacterDto getCharacter(@AuthenticationPrincipal UserDetails userDetails,
+                                     @PathVariable Long id) {
+        Character character = characterService.findByIdForUser(id, userDetails);
+        return CharacterDto.mapFromEntity(character);
+    }
+
+    @PutMapping("/{id}")
+    public CharacterDto updateCharacter(@AuthenticationPrincipal UserDetails userDetails,
+                                        @PathVariable Long id,
+                                        @RequestBody CharacterDto characterDto) {
+        Character updatedCharacter = characterService.update(id, characterDto, userDetails);
+        return CharacterDto.mapFromEntity(updatedCharacter);
     }
 }

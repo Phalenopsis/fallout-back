@@ -36,6 +36,16 @@ public class Special {
         luck = dto.luck();
     }
 
+    public void update(SpecialDto dto) {
+        strength = dto.strength();
+        perception = dto.perception();
+        endurance = dto.endurance();
+        charisma = dto.charisma();
+        intelligence = dto.intelligence();
+        agility = dto.agility();
+        luck = dto.luck();
+    }
+
     public Long getId() {
         return id;
     }
