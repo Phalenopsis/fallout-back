@@ -9,6 +9,8 @@ import eu.nicosworld.falloutback.infrastructure.web.dto.character.CharacterDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class CharacterService {
     private final CharacterRepository characterRepository;
@@ -21,15 +23,47 @@ public class CharacterService {
         this.domainUserService = domainUserService;
     }
 
-    public Character save(CharacterDto characterDto, UserDetails user) {
-        DomainUser domainUser = domainUserService.findByUser(user);
+    public Character save(CharacterDto characterDto, UserDetails userDetails) {
+        DomainUser domainUser = domainUserService.findByUser(userDetails);
 
         Character character = new Character(characterDto, domainUser);
+        Special special;
+        if(Objects.isNull(characterDto.special())) {
+            special = new Special();
+        } else {
+            special = new Special(characterDto.special());
+        }
 
-        Special special = new Special(characterDto.special());
         character.setSpecial(special); // 🔥 lien bidirectionnel
 
         return characterRepository.save(character); // cascade save Special
     }
 
+    public Character findByIdForUser(Long id, UserDetails userDetails) {
+        DomainUser domainUser = domainUserService.findByUser(userDetails);
+
+        Character character = characterRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Character not found"));
+
+        if (!character.getUser().getId().equals(domainUser.getId())) {
+            throw new RuntimeException("Unauthorized");
+        }
+
+        return character;
+    }
+
+    public Character update(Long id, CharacterDto characterDto, UserDetails userDetails) {
+        DomainUser domainUser = domainUserService.findByUser(userDetails);
+
+        Character character = characterRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Character not found"));
+
+        if (!character.getUser().getId().equals(domainUser.getId())) {
+            throw new RuntimeException("Unauthorized");
+        }
+
+        character.update(characterDto);
+
+        return characterRepository.save(character);
+    }
 }

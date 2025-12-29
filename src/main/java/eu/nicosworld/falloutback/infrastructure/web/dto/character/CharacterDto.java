@@ -1,15 +1,20 @@
 package eu.nicosworld.falloutback.infrastructure.web.dto.character;
 
+import eu.nicosworld.falloutback.domain.character.CreationStatus;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.character.Character;
 
 public record CharacterDto(Long id,
                            String name,
-                           SpecialDto special) {
+                           String originName,
+                           SpecialDto special,
+                           CreationStatus creationStatus) {
     public static CharacterDto mapFromEntity(Character character) {
         return new CharacterDto(
                 character.getId(),
                 character.getName(),
-                SpecialDto.mapFromEntity(character.getSpecial())
+                character.getOriginName(),
+                SpecialDto.mapFromEntity(character.getSpecial()),
+                character.getCreationStatus()
         );
     }
 }

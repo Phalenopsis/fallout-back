@@ -1,7 +1,9 @@
 package eu.nicosworld.falloutback.infrastructure.persistence.entity.character;
 
+import eu.nicosworld.falloutback.domain.character.CreationStatus;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.DomainUser;
 import eu.nicosworld.falloutback.infrastructure.web.dto.character.CharacterDto;
+import eu.nicosworld.falloutback.infrastructure.web.dto.character.SpecialDto;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,6 +22,12 @@ public class Character {
     @OneToOne(mappedBy = "character", cascade = CascadeType.ALL, optional = false)
     private Special special;
 
+    private String originName;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private CreationStatus creationStatus = CreationStatus.DRAFT;
+
     public Character() {
 
     }
@@ -27,6 +35,33 @@ public class Character {
     public Character(CharacterDto characterDto, DomainUser domainUser) {
         user = domainUser;
         name = characterDto.name();
+        originName = characterDto.originName();
+        creationStatus = characterDto.creationStatus();
+        if (characterDto.special() != null) {
+            this.special = new Special(characterDto.special());
+        } else {
+            this.special = new Special();
+        }
+
+    }
+
+    public void update(CharacterDto characterDto) {
+        if (characterDto.name() != null) {
+            this.name = characterDto.name();
+        }
+        if (characterDto.originName() != null) {
+            this.originName = characterDto.originName();
+        }
+        if (characterDto.creationStatus() != null) {
+            this.creationStatus = characterDto.creationStatus();
+        }
+        if (characterDto.special() != null) {
+            if (this.special == null) {
+                this.special = new Special(characterDto.special());
+            } else {
+                this.special.update(characterDto.special());
+            }
+        }
     }
 
     /*
@@ -68,5 +103,21 @@ public class Character {
         if (special.getCharacter() != this) {
             special.setCharacter(this);
         }
+    }
+
+    public String getOriginName() {
+        return originName;
+    }
+
+    public void setOriginName(String originName) {
+        this.originName = originName;
+    }
+
+    public CreationStatus getCreationStatus() {
+        return creationStatus;
+    }
+
+    public void setCreationStatus(CreationStatus creationStatus) {
+        this.creationStatus = creationStatus;
     }
 }
