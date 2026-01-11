@@ -3,7 +3,6 @@ package eu.nicosworld.falloutback.infrastructure.persistence.entity.character;
 import eu.nicosworld.falloutback.domain.character.CreationStatus;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.DomainUser;
 import eu.nicosworld.falloutback.infrastructure.web.dto.character.CharacterDto;
-import eu.nicosworld.falloutback.infrastructure.web.dto.character.SpecialDto;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,6 +20,9 @@ public class Character {
 
     @OneToOne(mappedBy = "character", cascade = CascadeType.ALL, optional = false)
     private Special special;
+
+    @OneToOne(mappedBy = "character", cascade = CascadeType.ALL, optional = false)
+    private Skills skills;
 
     private String originName;
 
@@ -42,7 +44,11 @@ public class Character {
         } else {
             this.special = new Special();
         }
-
+        if (characterDto.skills() != null) {
+            this.skills = new Skills(characterDto.skills());
+        } else {
+            this.skills = new Skills();
+        }
     }
 
     public void update(CharacterDto characterDto) {
@@ -60,6 +66,13 @@ public class Character {
                 this.special = new Special(characterDto.special());
             } else {
                 this.special.update(characterDto.special());
+            }
+        }
+        if(characterDto.skills() != null) {
+            if (this.skills == null) {
+                this.skills = new Skills(characterDto.skills());
+            } else {
+                this.skills.update(characterDto.skills());
             }
         }
     }
@@ -119,5 +132,16 @@ public class Character {
 
     public void setCreationStatus(CreationStatus creationStatus) {
         this.creationStatus = creationStatus;
+    }
+
+    public Skills getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Skills skills) {
+        this.skills = skills;
+        if(skills.getCharacter() != this) {
+            skills.setCharacter(this);
+        }
     }
 }
