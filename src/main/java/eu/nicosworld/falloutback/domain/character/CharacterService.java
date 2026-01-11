@@ -3,6 +3,7 @@ package eu.nicosworld.falloutback.domain.character;
 import eu.nicosworld.falloutback.domain.domainUser.DomainUserService;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.DomainUser;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.character.Character;
+import eu.nicosworld.falloutback.infrastructure.persistence.entity.character.Skills;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.character.Special;
 import eu.nicosworld.falloutback.infrastructure.persistence.repository.character.CharacterRepository;
 import eu.nicosworld.falloutback.infrastructure.web.dto.character.CharacterDto;
@@ -35,6 +36,15 @@ public class CharacterService {
         }
 
         character.setSpecial(special); // 🔥 lien bidirectionnel
+
+        Skills skills;
+        if(Objects.isNull(characterDto.skills())) {
+            skills = new Skills();
+        } else {
+            skills = new Skills(characterDto.skills());
+        }
+
+        character.setSkills(skills);
 
         return characterRepository.save(character); // cascade save Special
     }
