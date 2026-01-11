@@ -7,14 +7,17 @@ public record CharacterDto(Long id,
                            String name,
                            String originName,
                            SpecialDto special,
-                           CreationStatus creationStatus) {
+                           CreationStatus creationStatus,
+                           SkillsDto skills
+) {
     public static CharacterDto mapFromEntity(Character character) {
         return new CharacterDto(
                 character.getId(),
                 character.getName(),
                 character.getOriginName(),
                 SpecialDto.mapFromEntity(character.getSpecial()),
-                character.getCreationStatus()
+                character.getCreationStatus(),
+                SkillsDto.mapFromEntity(character.getSkills())
         );
     }
 }

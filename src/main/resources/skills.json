@@ -1,0 +1,138 @@
+[
+  {
+    "name": "energyWeapons",
+    "nom": "Armes à énergie",
+    "SPECIAL": "Perception",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "meleeWeapons",
+    "nom": "Armes de corps à corps",
+    "SPECIAL": "Force",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "smallGuns",
+    "nom": "Armes légères",
+    "SPECIAL": "Agilité",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "bigGuns",
+    "nom": "Armes lourdes",
+    "SPECIAL": "Endurance",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "athletics",
+    "nom": "Athlétisme",
+    "SPECIAL": "Force",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "lockpick",
+    "nom": "Crochetage",
+    "SPECIAL": "Perception",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "speech",
+    "nom": "Éloquence",
+    "SPECIAL": "Charisme",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "sneak",
+    "nom": "Discrétion",
+    "SPECIAL": "Agilité",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "explosives",
+    "nom": "Explosifs",
+    "SPECIAL": "Perception",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "unarmed",
+    "nom": "Mains nues",
+    "SPECIAL": "Force",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "medicine",
+    "nom": "Médecine",
+    "SPECIAL": "Intelligence",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "pilot",
+    "nom": "Pilotage",
+    "SPECIAL": "Perception",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "throwing",
+    "nom": "Projectiles",
+    "SPECIAL": "Agilité",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "repair",
+    "nom": "Réparation",
+    "SPECIAL": "Intelligence",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "science",
+    "nom": "Sciences",
+    "SPECIAL": "Intelligence",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "survival",
+    "nom": "Survie",
+    "SPECIAL": "Endurance",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  },
+  {
+    "name": "barter",
+    "nom": "Troc",
+    "SPECIAL": "Intelligence",
+    "secondarySPECIAL": [],
+    "shortDescription": [],
+    "description": []
+  }
+]
