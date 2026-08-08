@@ -5,5 +5,6 @@ public enum NoteType {
     NPC,
     QUEST,
     FREE_NOTE,
-    MAP
+    MAP,
+    BACKGROUND
 }

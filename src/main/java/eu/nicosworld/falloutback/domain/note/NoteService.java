@@ -12,6 +12,7 @@ import eu.nicosworld.falloutback.infrastructure.persistence.repository.character
 import eu.nicosworld.falloutback.infrastructure.persistence.repository.note.NoteRepository;
 import eu.nicosworld.falloutback.infrastructure.web.dto.note.CreateNoteDto;
 import eu.nicosworld.falloutback.infrastructure.web.dto.note.NoteResponseDto;
+import eu.nicosworld.falloutback.infrastructure.web.dto.note.NoteSummaryDto;
 import eu.nicosworld.falloutback.infrastructure.web.dto.note.UpdateNoteDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -121,11 +122,37 @@ public class NoteService {
         return toDto(noteRepository.save(copy));
     }
 
+    // À rajouter dans NoteService.java :
+
     @Transactional(readOnly = true)
-    public List<NoteResponseDto> getMyNotes(String userEmail) {
+    public NoteResponseDto getNoteById(String userEmail, Long noteId) {
         DomainUser user = getDomainUserByEmail(userEmail);
-        return noteRepository.findAllAccessibleByUser(user).stream()
-            .map(this::toDto)
+        Note note = noteRepository.findByIdAndUser(noteId, user)
+            .orElseThrow(() -> new IllegalArgumentException("Note introuvable ou accès non autorisé"));
+        return toDto(note);
+    }
+
+    @Transactional(readOnly = true)
+    public List<NoteSummaryDto> getCharacterNotesSummary(String userEmail, Long characterId, NoteType type) {
+        DomainUser user = getDomainUserByEmail(userEmail);
+        List<Note> notes = (type != null) ?
+            noteRepository.findAllByCharacterAndTypeAndUser(characterId, type, user) :
+            noteRepository.findAllByCharacterAndUser(characterId, user);
+
+        return notes.stream()
+            .map(n -> new NoteSummaryDto(n.getId(), n.getTitle(), n.getType()))
+            .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<NoteSummaryDto> getCampaignNotesSummary(String userEmail, Long campaignId, NoteType type) {
+        DomainUser user = getDomainUserByEmail(userEmail);
+        List<Note> notes = (type != null) ?
+            noteRepository.findAllByCampaignAndTypeAndUser(campaignId, type, user) :
+            noteRepository.findAllByCampaignAndUser(campaignId, user);
+
+        return notes.stream()
+            .map(n -> new NoteSummaryDto(n.getId(), n.getTitle(), n.getType()))
             .toList();
     }
 

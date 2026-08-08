@@ -1,8 +1,10 @@
 package eu.nicosworld.falloutback.infrastructure.web.controller.note;
 
 import eu.nicosworld.falloutback.domain.note.NoteService;
+import eu.nicosworld.falloutback.domain.note.NoteType;
 import eu.nicosworld.falloutback.infrastructure.web.dto.note.CreateNoteDto;
 import eu.nicosworld.falloutback.infrastructure.web.dto.note.NoteResponseDto;
+import eu.nicosworld.falloutback.infrastructure.web.dto.note.NoteSummaryDto;
 import eu.nicosworld.falloutback.infrastructure.web.dto.note.UpdateNoteDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,6 +30,34 @@ public class NoteController {
         return ResponseEntity.ok(noteService.createNote(userDetails.getUsername(), dto));
     }
 
+    // GET /api/notes/{id} -> Récupère UNE note complète quand on clique dessus
+    @GetMapping("/{id}")
+    public ResponseEntity<NoteResponseDto> getNoteById(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @PathVariable Long id) {
+        return ResponseEntity.ok(noteService.getNoteById(userDetails.getUsername(), id));
+    }
+
+    // GET /api/notes/character/{characterId}?type=QUEST
+    // Si type est omis, retourne TOUTES les notes du personnage.
+    // Retourne un DTO léger (id, title, type) pour la liste de l'onglet.
+    @GetMapping("/character/{characterId}")
+    public ResponseEntity<List<NoteSummaryDto>> getCharacterNotes(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @PathVariable Long characterId,
+        @RequestParam(required = false) NoteType type) {
+        return ResponseEntity.ok(noteService.getCharacterNotesSummary(userDetails.getUsername(), characterId, type));
+    }
+
+    // GET /api/notes/campaign/{campaignId}?type=LOCATION
+    @GetMapping("/campaign/{campaignId}")
+    public ResponseEntity<List<NoteSummaryDto>> getCampaignNotes(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @PathVariable Long campaignId,
+        @RequestParam(required = false) NoteType type) {
+        return ResponseEntity.ok(noteService.getCampaignNotesSummary(userDetails.getUsername(), campaignId, type));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<NoteResponseDto> updateNote(
         @AuthenticationPrincipal UserDetails userDetails,
@@ -49,25 +79,5 @@ public class NoteController {
         @AuthenticationPrincipal UserDetails userDetails,
         @PathVariable Long id) {
         return ResponseEntity.ok(noteService.copyNote(userDetails.getUsername(), id));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<NoteResponseDto>> getMyNotes(
-        @AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(noteService.getMyNotes(userDetails.getUsername()));
-    }
-
-    @GetMapping("/campaign/{campaignId}")
-    public ResponseEntity<List<NoteResponseDto>> getCampaignNotes(
-        @AuthenticationPrincipal UserDetails userDetails,
-        @PathVariable Long campaignId) {
-        return ResponseEntity.ok(noteService.getCampaignNotes(userDetails.getUsername(), campaignId));
-    }
-
-    @GetMapping("/character/{characterId}")
-    public ResponseEntity<List<NoteResponseDto>> getCharacterNotes(
-        @AuthenticationPrincipal UserDetails userDetails,
-        @PathVariable Long characterId) {
-        return ResponseEntity.ok(noteService.getCharacterNotes(userDetails.getUsername(), characterId));
     }
 }
