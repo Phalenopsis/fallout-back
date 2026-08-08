@@ -1,8 +1,6 @@
 package eu.nicosworld.falloutback.domain.campaign;
 
-import eu.nicosworld.falloutback.AbstractE2ETest;
-import eu.nicosworld.falloutback.authentication.model.UserLoginDTO;
-import eu.nicosworld.falloutback.authentication.model.UserRegistrationDTO;
+import eu.nicosworld.falloutback.AbstractAuthE2ETest;
 import eu.nicosworld.falloutback.domain.character.CreationStatus;
 import eu.nicosworld.falloutback.infrastructure.web.dto.campaign.CreateCampaignDto;
 import eu.nicosworld.falloutback.infrastructure.web.dto.character.CharacterDto;
@@ -13,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-class CampaignE2ETest extends AbstractE2ETest {
+class CampaignE2ETest extends AbstractAuthE2ETest {
 
     @Test
     void shouldCreateCampaignInviteCharacterAndAccept() {
@@ -112,34 +110,5 @@ class CampaignE2ETest extends AbstractE2ETest {
             .statusCode(200)
             .body("size()", equalTo(1))
             .body("[0].name", equalTo("Fallout: Boston Wasteland"));
-    }
-
-    private void registerUser(String email, String password) {
-        UserRegistrationDTO dto = new UserRegistrationDTO();
-        dto.setEmail(email);
-        dto.setPassword(password);
-
-        given()
-            .contentType(ContentType.JSON)
-            .body(dto)
-            .when()
-            .post("/auth/register")
-            .then()
-            .statusCode(201);
-    }
-
-    private String loginAndGetToken(String email, String password) {
-        UserLoginDTO dto = new UserLoginDTO();
-        dto.setEmail(email);
-        dto.setPassword(password);
-
-        return given()
-            .contentType(ContentType.JSON)
-            .body(dto)
-            .when()
-            .post("/auth/login")
-            .then()
-            .statusCode(200)
-            .extract().path("accessToken");
     }
 }
