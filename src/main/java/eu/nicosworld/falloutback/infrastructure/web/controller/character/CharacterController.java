@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("character")
+@RequestMapping("api/characters")
 public class CharacterController {
 
     private final CharacterService characterService;
