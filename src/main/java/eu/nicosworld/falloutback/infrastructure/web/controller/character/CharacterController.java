@@ -3,9 +3,12 @@ package eu.nicosworld.falloutback.infrastructure.web.controller.character;
 import eu.nicosworld.falloutback.domain.character.CharacterService;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.character.Character;
 import eu.nicosworld.falloutback.infrastructure.web.dto.character.CharacterDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/characters")
@@ -17,6 +20,15 @@ public class CharacterController {
             CharacterService characterService
     ) {
         this.characterService = characterService;
+    }
+
+    @GetMapping("/friend/{friendId}/available")
+    public ResponseEntity<List<CharacterDto>> getAvailableCharactersForFriend(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @PathVariable Long friendId) {
+
+        List<CharacterDto> availableChars = characterService.findAvailableCharactersForUserForCampaign(friendId, userDetails);
+        return ResponseEntity.ok(availableChars);
     }
 
     @PostMapping

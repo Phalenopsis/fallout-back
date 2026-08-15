@@ -10,6 +10,7 @@ import eu.nicosworld.falloutback.infrastructure.web.dto.character.CharacterDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -75,5 +76,20 @@ public class CharacterService {
         character.update(characterDto);
 
         return characterRepository.save(character);
+    }
+
+    public List<CharacterDto> findAvailableCharactersForUserForCampaign(Long friendId, UserDetails userDetails) {
+            DomainUser currentUser = domainUserService.findByUser(userDetails);
+
+            // Récupération des personnages éligibles directement depuis la BDD
+            List<Character> availableCharacters = characterRepository.findAvailableCharactersForFriendAndCampaign(
+                currentUser.getId(),
+                friendId
+            );
+
+            // Mapping vers le DTO
+            return availableCharacters.stream()
+                .map(CharacterDto::mapFromEntity)
+                .toList();
     }
 }
