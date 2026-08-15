@@ -30,7 +30,7 @@ class CampaignE2ETest extends AbstractAuthE2ETest {
             .when()
             .post("/api/friends/request")
             .then()
-            .statusCode(200)
+            .statusCode(201)
             .extract().path("friendshipId");
 
         given()

@@ -76,7 +76,7 @@ class NoteE2ETest extends AbstractAuthE2ETest {
             .when()
             .put("/api/notes/" + originalNoteId)
             .then()
-            .statusCode(500);
+            .statusCode(403);
 
         // 6. Le joueur fait une COPIE de la note
         int copiedNoteId = given()

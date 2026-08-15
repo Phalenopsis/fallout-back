@@ -28,7 +28,7 @@ class FriendshipE2ETest extends AbstractAuthE2ETest {
             .when()
             .post("/api/friends/request")
             .then()
-            .statusCode(200)
+            .statusCode(201)
             .body("friendUsername", equalTo("userB@test.com"))
             .body("status", equalTo("PENDING"))
             .extract()
