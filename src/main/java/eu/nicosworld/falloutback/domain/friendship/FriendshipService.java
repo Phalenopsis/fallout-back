@@ -66,7 +66,7 @@ public class FriendshipService {
     public List<FriendshipResponseDto> getPendingRequests(String currentEmail) {
         DomainUser currentUser = getDomainUserByEmail(currentEmail);
 
-        return friendshipRepository.findByAddresseeAndStatus(currentUser, InvitationStatus.PENDING)
+        return friendshipRepository.findAllPendingForUser(currentUser, InvitationStatus.PENDING)
             .stream()
             .map(f -> toDto(f, currentUser.getId()))
             .toList();

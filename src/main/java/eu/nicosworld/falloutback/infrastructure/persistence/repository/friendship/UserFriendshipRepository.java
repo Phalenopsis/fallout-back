@@ -19,8 +19,15 @@ public interface UserFriendshipRepository extends JpaRepository<UserFriendship, 
         "(f.requester = :u2 AND f.addressee = :u1)")
     Optional<UserFriendship> findFriendshipBetween(@Param("u1") DomainUser u1, @Param("u2") DomainUser u2);
 
-    // Liste des demandes d'amis reçues en attente
-    List<UserFriendship> findByAddresseeAndStatus(DomainUser addressee, InvitationStatus status);
+    @Query("""
+    SELECT f FROM UserFriendship f 
+    WHERE (f.requester = :user OR f.addressee = :user) 
+      AND f.status = :status
+""")
+    List<UserFriendship> findAllPendingForUser(
+        @Param("user") DomainUser user,
+        @Param("status") InvitationStatus status
+    );
 
     // Liste des amitiés confirmées (dans un sens ou dans l'autre)
     @Query("SELECT f FROM UserFriendship f WHERE " +
