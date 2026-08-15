@@ -2,6 +2,8 @@ package eu.nicosworld.falloutback.domain.note;
 
 import eu.nicosworld.falloutback.authentication.UserRepository;
 import eu.nicosworld.falloutback.authentication.model.User;
+import eu.nicosworld.falloutback.exception.ResourceNotFoundException;
+import eu.nicosworld.falloutback.exception.UnauthorizedAccessException;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.DomainUser;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.campaign.Campaign;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.character.Character;
@@ -122,14 +124,35 @@ public class NoteService {
         return toDto(noteRepository.save(copy));
     }
 
-    // À rajouter dans NoteService.java :
+    // Exemple dans NoteService.java
 
     @Transactional(readOnly = true)
     public NoteResponseDto getNoteById(String userEmail, Long noteId) {
         DomainUser user = getDomainUserByEmail(userEmail);
-        Note note = noteRepository.findByIdAndUser(noteId, user)
-            .orElseThrow(() -> new IllegalArgumentException("Note introuvable ou accès non autorisé"));
+
+        // On cherche d'abord si la note existe en BDD
+        Note note = noteRepository.findById(noteId)
+            .orElseThrow(() -> new ResourceNotFoundException("Note introuvable avec l'ID : " + noteId));
+
+        // Si elle existe, on vérifie si l'utilisateur y a accès (Auteur ou Partagée)
+        boolean isAuthor = note.getAuthor().getId().equals(user.getId());
+        boolean isShared = note.getShares().stream().anyMatch(s -> s.getSharedWith().getId().equals(user.getId()));
+
+        if (!isAuthor && !isShared) {
+            throw new UnauthorizedAccessException("Accès refusé : vous n'avez pas les droits pour consulter cette note.");
+        }
+
         return toDto(note);
+    }
+
+    private Note getNoteIfAuthor(Long noteId, Long userId) {
+        Note note = noteRepository.findById(noteId)
+            .orElseThrow(() -> new ResourceNotFoundException("Note introuvable avec l'ID : " + noteId));
+
+        if (!note.getAuthor().getId().equals(userId)) {
+            throw new UnauthorizedAccessException("Accès refusé : vous n'êtes pas l'auteur de cette note.");
+        }
+        return note;
     }
 
     @Transactional(readOnly = true)
@@ -172,15 +195,6 @@ public class NoteService {
             .toList();
     }
 
-    private Note getNoteIfAuthor(Long noteId, Long userId) {
-        Note note = noteRepository.findById(noteId)
-            .orElseThrow(() -> new IllegalArgumentException("Note introuvable"));
-
-        if (!note.getAuthor().getId().equals(userId)) {
-            throw new IllegalStateException("Seul l'auteur peut modifier ou supprimer cette note.");
-        }
-        return note;
-    }
 
     private DomainUser getDomainUserByEmail(String email) {
         User authUser = userRepository.findByEmail(email)
