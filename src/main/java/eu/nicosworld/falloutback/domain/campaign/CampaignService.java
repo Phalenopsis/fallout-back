@@ -15,6 +15,7 @@ import eu.nicosworld.falloutback.infrastructure.persistence.repository.friendshi
 import eu.nicosworld.falloutback.infrastructure.web.dto.campaign.CampaignCharacterDto;
 import eu.nicosworld.falloutback.infrastructure.web.dto.campaign.CampaignResponseDto;
 import eu.nicosworld.falloutback.infrastructure.web.dto.campaign.CreateCampaignDto;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -154,10 +155,20 @@ public class CampaignService {
     private CampaignCharacterDto toMemberDto(CampaignCharacter cc) {
         return new CampaignCharacterDto(
             cc.getId(),
-            cc.getCharacter().getId(),
-            cc.getCharacter().getName(),
-            cc.getCharacter().getUser().getUser().getEmail(),
+            cc.getCampaign().getId(),
+            cc.getCampaign().getName(),
+            cc.getCharacter() != null ? cc.getCharacter().getId() : null,
+            cc.getCharacter() != null ? cc.getCharacter().getName() : null,
+            cc.getCharacter() != null && cc.getCharacter().getUser() != null && cc.getCharacter().getUser().getUser() != null
+                ? cc.getCharacter().getUser().getUser().getEmail()
+                : null,
             cc.getStatus()
         );
+    }
+
+    public List<CampaignCharacterDto> getCampaignCharacters(Long campaignId, UserDetails userDetails) {
+        List<CampaignCharacter> characters = campaignCharacterRepository.findCharacters(campaignId);
+
+        return characters.stream().map(this::toMemberDto).toList();
     }
 }

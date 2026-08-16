@@ -4,6 +4,8 @@ import eu.nicosworld.falloutback.domain.invitation.InvitationStatus;
 
 public record CampaignCharacterDto(
     Long campaignCharacterId,
+    Long campaignId,
+    String campaignName,
     Long characterId,
     String characterName,
     String ownerEmail,

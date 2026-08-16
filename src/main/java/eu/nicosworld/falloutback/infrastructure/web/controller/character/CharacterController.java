@@ -43,7 +43,7 @@ public class CharacterController {
     @GetMapping("/{id}")
     public CharacterDto getCharacter(@AuthenticationPrincipal UserDetails userDetails,
                                      @PathVariable Long id) {
-        Character character = characterService.findByIdForUser(id, userDetails);
+        Character character = characterService.findByIdForUserOrGM(id, userDetails);
         return CharacterDto.mapFromEntity(character);
     }
 

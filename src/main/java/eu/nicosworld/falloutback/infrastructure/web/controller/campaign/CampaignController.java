@@ -4,6 +4,7 @@ import eu.nicosworld.falloutback.domain.campaign.CampaignService;
 import eu.nicosworld.falloutback.infrastructure.web.dto.campaign.CampaignCharacterDto;
 import eu.nicosworld.falloutback.infrastructure.web.dto.campaign.CampaignResponseDto;
 import eu.nicosworld.falloutback.infrastructure.web.dto.campaign.CreateCampaignDto;
+import eu.nicosworld.falloutback.infrastructure.web.dto.character.CharacterDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,6 +27,14 @@ public class CampaignController {
         @AuthenticationPrincipal UserDetails userDetails,
         @RequestBody CreateCampaignDto dto) {
         return ResponseEntity.ok(campaignService.createCampaign(userDetails.getUsername(), dto));
+    }
+
+    @GetMapping("/{campaignId}/characters")
+    public ResponseEntity<List<CampaignCharacterDto>> getCharactersForCampaign(
+        @PathVariable Long campaignId,
+        @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        return ResponseEntity.ok(campaignService.getCampaignCharacters(campaignId, userDetails));
     }
 
     @PostMapping("/{campaignId}/invite/{characterId}")

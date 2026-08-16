@@ -21,4 +21,11 @@ public interface CampaignCharacterRepository extends JpaRepository<CampaignChara
     @Query("SELECT cc FROM CampaignCharacter cc " +
         "WHERE cc.character.user = :player AND cc.status = 'PENDING'")
     List<CampaignCharacter> findPendingInvitationsForPlayer(@Param("player") DomainUser player);
+
+    @Query("SELECT COUNT(cc) > 0 FROM CampaignCharacter cc WHERE cc.character.id = :characterId AND cc.campaign.gameMaster.id = :gmId")
+    boolean existsByCharacterIdAndCampaignGameMasterId(@Param("characterId") Long characterId, @Param("gmId") Long gmId);
+
+    @Query("SELECT cc FROM CampaignCharacter cc " +
+        "WHERE cc.campaign.id = :campaignId AND cc.status = 'ACCEPTED'")
+    List<CampaignCharacter> findCharacters(Long campaignId);
 }
