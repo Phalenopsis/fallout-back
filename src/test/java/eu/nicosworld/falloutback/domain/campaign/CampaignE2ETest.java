@@ -1,114 +1,54 @@
 package eu.nicosworld.falloutback.domain.campaign;
 
-import eu.nicosworld.falloutback.AbstractAuthE2ETest;
-import eu.nicosworld.falloutback.domain.character.CreationStatus;
-import eu.nicosworld.falloutback.infrastructure.web.dto.campaign.CreateCampaignDto;
-import eu.nicosworld.falloutback.infrastructure.web.dto.character.CharacterDto;
-import eu.nicosworld.falloutback.infrastructure.web.dto.friendship.FriendRequestDto;
-import io.restassured.http.ContentType;
+import eu.nicosworld.falloutback.AbstractCampaignAndCharacterE2ETest;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-class CampaignE2ETest extends AbstractAuthE2ETest {
+class CampaignE2ETest extends AbstractCampaignAndCharacterE2ETest {
 
     @Test
     void shouldCreateCampaignInviteCharacterAndAccept() {
         // 1. Inscription du MJ et du Joueur
-        registerUser("mj@test.com", "password123");
-        registerUser("player@test.com", "password123");
+        String dmEmail = "mj@test.com";
+        String dmPassword = "password123";
 
-        String tokenGm = loginAndGetToken("mj@test.com", "password123");
-        String tokenPlayer = loginAndGetToken("player@test.com", "password123");
+        String playerEmail = "player@test.com";
+        String playerPassword = "123password!";
+        registerUser(dmEmail, dmPassword);
+        registerUser(playerEmail, playerPassword);
+
+        String dmToken = loginAndGetToken(dmEmail, dmPassword);
+        String playerToken = loginAndGetToken(playerEmail, playerPassword);
+
+        String campaignName = "Fallout: Boston Wasteland";
 
         // 2. Établir l'amitié entre MJ et Joueur
-        int friendshipId = given()
-            .header("Authorization", "Bearer " + tokenGm)
-            .contentType(ContentType.JSON)
-            .body(new FriendRequestDto("player@test.com"))
-            .when()
-            .post("/api/friends/request")
-            .then()
-            .statusCode(201)
-            .extract().path("friendshipId");
+        int friendshipId = setFriendship(dmToken, playerEmail);
 
-        given()
-            .header("Authorization", "Bearer " + tokenPlayer)
-            .when()
-            .post("/api/friends/request/" + friendshipId + "/accept")
-            .then()
-            .statusCode(200);
+        acceptFriendship(playerToken, friendshipId);
 
-        // 3. Le joueur crée un personnage (route "/character" & constructeur DTO exact)
-        CharacterDto characterReq = new CharacterDto(
-            null,
-            "Vault Dweller Bob",
-            "Vault Dweller",
-            null, // special
-            CreationStatus.COMPLETED,
-            null  // skills
-        );
+        int characterId = createCharacter(playerToken, "Bob");
 
-        int characterId = given()
-            .header("Authorization", "Bearer " + tokenPlayer)
-            .contentType(ContentType.JSON)
-            .body(characterReq)
-            .when()
-            .post("/api/characters")
-            .then()
-            .statusCode(200)
-            .extract().path("id");
+        int campaignId = createCampaign(dmToken, campaignName);
 
-        // 4. Le MJ crée une campagne
-        int campaignId = given()
-            .header("Authorization", "Bearer " + tokenGm)
-            .contentType(ContentType.JSON)
-            .body(new CreateCampaignDto("Fallout: Boston Wasteland"))
-            .when()
-            .post("/api/campaigns")
-            .then()
-            .statusCode(200)
-            .body("name", equalTo("Fallout: Boston Wasteland"))
-            .extract().path("id");
-
-        // 5. Le MJ invite le personnage du joueur
-        given()
-            .header("Authorization", "Bearer " + tokenGm)
-            .when()
-            .post("/api/campaigns/" + campaignId + "/invite/" + characterId)
-            .then()
-            .statusCode(200)
-            .body("members.size()", equalTo(1))
-            .body("members[0].status", equalTo("PENDING"));
+        inviteCharacterToCampaign(dmToken, campaignId, characterId);
 
         // 6. Le joueur récupère ses invitations en attente
-        int campaignCharacterId = given()
-            .header("Authorization", "Bearer " + tokenPlayer)
-            .when()
-            .get("/api/campaigns/invitations/pending")
-            .then()
-            .statusCode(200)
-            .body("size()", equalTo(1))
-            .extract().path("[0].campaignCharacterId");
+        int invitationId = getPendingInvitation(playerToken);
 
         // 7. Le joueur accepte l'invitation
-        given()
-            .header("Authorization", "Bearer " + tokenPlayer)
-            .when()
-            .post("/api/campaigns/invitations/" + campaignCharacterId + "/accept")
-            .then()
-            .statusCode(200)
-            .body("status", equalTo("ACCEPTED"));
+        acceptCampaignToInvitation(playerToken, invitationId);
 
         // 8. Le joueur vérifie que la campagne apparaît dans sa liste
         given()
-            .header("Authorization", "Bearer " + tokenPlayer)
+            .header("Authorization", "Bearer " + playerToken)
             .when()
             .get("/api/campaigns/player")
             .then()
             .statusCode(200)
             .body("size()", equalTo(1))
-            .body("[0].name", equalTo("Fallout: Boston Wasteland"));
+            .body("[0].name", equalTo(campaignName));
     }
 }

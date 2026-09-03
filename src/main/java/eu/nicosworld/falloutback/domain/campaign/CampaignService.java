@@ -3,6 +3,7 @@ package eu.nicosworld.falloutback.domain.campaign;
 import eu.nicosworld.falloutback.authentication.UserRepository;
 import eu.nicosworld.falloutback.authentication.model.User;
 import eu.nicosworld.falloutback.domain.invitation.InvitationStatus;
+import eu.nicosworld.falloutback.exception.ResourceNotFoundException;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.DomainUser;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.campaign.Campaign;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.campaign.CampaignCharacter;
@@ -170,5 +171,12 @@ public class CampaignService {
         List<CampaignCharacter> characters = campaignCharacterRepository.findCharacters(campaignId);
 
         return characters.stream().map(this::toMemberDto).toList();
+    }
+
+    public CampaignResponseDto getCharacterCampaign(UserDetails userDetails, Long characterId) {
+        Campaign campaign = campaignRepository.findAcceptedCampaignByCharacterId(characterId)
+            .orElseThrow(() -> new ResourceNotFoundException("Aucune campagne acceptée pour le personnage"));
+
+        return toDto(campaign);
     }
 }

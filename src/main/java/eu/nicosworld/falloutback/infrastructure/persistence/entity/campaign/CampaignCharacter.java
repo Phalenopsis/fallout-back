@@ -6,7 +6,15 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "campaign_character")
+@Table(
+    name = "campaign_character",
+    uniqueConstraints = {
+        @UniqueConstraint(
+            name = "uk_campaign_character_character",
+            columnNames = "character_id"
+        )
+    }
+)
 public class CampaignCharacter {
 
     @Id

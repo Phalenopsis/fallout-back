@@ -9,5 +9,6 @@ public record CreateNoteDto(
     NoteType type,
     Long campaignId,
     Long characterId,
-    List<String> shareWithEmails
+    List<NoteShareTargetDto> shareTargets,
+    String directory
 ) {}

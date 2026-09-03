@@ -7,5 +7,6 @@ public record UpdateNoteDto(
     String title,
     String content,
     NoteType type,
-    List<String> shareWithEmails
+    List<NoteShareTargetDto> shareTargets,
+    String directory
 ) {}

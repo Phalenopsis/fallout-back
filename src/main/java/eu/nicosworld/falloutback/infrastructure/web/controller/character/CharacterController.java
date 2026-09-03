@@ -1,7 +1,9 @@
 package eu.nicosworld.falloutback.infrastructure.web.controller.character;
 
+import eu.nicosworld.falloutback.domain.campaign.CampaignService;
 import eu.nicosworld.falloutback.domain.character.CharacterService;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.character.Character;
+import eu.nicosworld.falloutback.infrastructure.web.dto.campaign.CampaignResponseDto;
 import eu.nicosworld.falloutback.infrastructure.web.dto.character.CharacterDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,11 +17,14 @@ import java.util.List;
 public class CharacterController {
 
     private final CharacterService characterService;
+    private final CampaignService campaignService;
 
     CharacterController(
-            CharacterService characterService
+            CharacterService characterService,
+            CampaignService campaignService
     ) {
         this.characterService = characterService;
+        this.campaignService = campaignService;
     }
 
     @GetMapping("/friend/{friendId}/available")
@@ -29,6 +34,13 @@ public class CharacterController {
 
         List<CharacterDto> availableChars = characterService.findAvailableCharactersForUserForCampaign(friendId, userDetails);
         return ResponseEntity.ok(availableChars);
+    }
+
+    @GetMapping("/{characterId}/campaign")
+    public ResponseEntity<CampaignResponseDto> getPlayerCampaign(@AuthenticationPrincipal UserDetails userDetails,
+                                                                 @PathVariable Long characterId) {
+        CampaignResponseDto campaign = campaignService.getCharacterCampaign(userDetails, characterId);
+        return ResponseEntity.ok(campaign);
     }
 
     @PostMapping

@@ -28,4 +28,11 @@ public interface CampaignCharacterRepository extends JpaRepository<CampaignChara
     @Query("SELECT cc FROM CampaignCharacter cc " +
         "WHERE cc.campaign.id = :campaignId AND cc.status = 'ACCEPTED'")
     List<CampaignCharacter> findCharacters(Long campaignId);
+
+    boolean existsByCampaign_IdAndCharacter_Id(
+        Long campaignId,
+        Long characterId
+    );
+
+    Optional<CampaignCharacter> findByCharacter(Character character);
 }
