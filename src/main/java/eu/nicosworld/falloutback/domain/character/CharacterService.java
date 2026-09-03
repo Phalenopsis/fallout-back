@@ -1,27 +1,34 @@
 package eu.nicosworld.falloutback.domain.character;
 
 import eu.nicosworld.falloutback.domain.domainUser.DomainUserService;
+import eu.nicosworld.falloutback.exception.ResourceNotFoundException;
+import eu.nicosworld.falloutback.exception.UnauthorizedAccessException;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.DomainUser;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.character.Character;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.character.Skills;
 import eu.nicosworld.falloutback.infrastructure.persistence.entity.character.Special;
+import eu.nicosworld.falloutback.infrastructure.persistence.repository.campaign.CampaignCharacterRepository;
 import eu.nicosworld.falloutback.infrastructure.persistence.repository.character.CharacterRepository;
 import eu.nicosworld.falloutback.infrastructure.web.dto.character.CharacterDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
 public class CharacterService {
     private final CharacterRepository characterRepository;
     private final DomainUserService domainUserService;
+    private final CampaignCharacterRepository campaignCharacterRepository;
 
     public CharacterService(CharacterRepository characterRepository,
-                            DomainUserService domainUserService
+                            DomainUserService domainUserService,
+                            CampaignCharacterRepository campaignCharacterRepository
     ) {
         this.characterRepository = characterRepository;
         this.domainUserService = domainUserService;
+        this.campaignCharacterRepository = campaignCharacterRepository;
     }
 
     public Character save(CharacterDto characterDto, UserDetails userDetails) {
@@ -75,5 +82,44 @@ public class CharacterService {
         character.update(characterDto);
 
         return characterRepository.save(character);
+    }
+
+    public List<CharacterDto> findAvailableCharactersForUserForCampaign(Long friendId, UserDetails userDetails) {
+            DomainUser currentUser = domainUserService.findByUser(userDetails);
+
+            // Récupération des personnages éligibles directement depuis la BDD
+            List<Character> availableCharacters = characterRepository.findAvailableCharactersForFriendAndCampaign(
+                currentUser.getId(),
+                friendId
+            );
+
+            // Mapping vers le DTO
+            return availableCharacters.stream()
+                .map(CharacterDto::mapFromEntity)
+                .toList();
+    }
+
+    public Character findByIdForUserOrGM(Long characterId, UserDetails userDetails) {
+        DomainUser currentUser = domainUserService.findByUser(userDetails);
+
+        Character character = characterRepository.findById(characterId)
+            .orElseThrow(() -> new ResourceNotFoundException("Personnage introuvable"));
+
+        // 1. Si le personnage appartient à l'utilisateur courant, c'est OK
+        if (character.getUser().getId().equals(currentUser.getId())) {
+            return character;
+        }
+
+        // 2. Sinon, vérifier si l'utilisateur courant est MJ d'une campagne qui contient ce personnage
+        boolean isGMOfCharacterCampaign = campaignCharacterRepository.existsByCharacterIdAndCampaignGameMasterId(
+            characterId,
+            currentUser.getId()
+        );
+
+        if (!isGMOfCharacterCampaign) {
+            throw new UnauthorizedAccessException("Vous n'avez pas l'autorisation de consulter ce personnage.");
+        }
+
+        return character;
     }
 }
