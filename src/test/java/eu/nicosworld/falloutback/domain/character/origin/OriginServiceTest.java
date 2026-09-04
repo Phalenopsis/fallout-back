@@ -1,18 +1,25 @@
 package eu.nicosworld.falloutback.domain.character.origin;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@ActiveProfiles("test")
 class OriginServiceTest {
 
-    @Autowired
     private OriginService originService;
+
+    @BeforeEach
+    void setUp() {
+        // Instanciation directe sans Spring (adapte si OriginService a des dépendances comme ObjectMapper)
+        originService = new OriginService(new ObjectMapper());
+        originService.init();
+    }
 
     @Test
     void shouldLoadOriginsFromJson() {
@@ -22,9 +29,9 @@ class OriginServiceTest {
         assertFalse(origines.isEmpty());
 
         Origin atom = origines.stream()
-                .filter(o -> o.getName().equals("ChildOfAtom"))
-                .findFirst()
-                .orElseThrow();
+            .filter(o -> "ChildOfAtom".equals(o.getName()))
+            .findFirst()
+            .orElseThrow();
 
         assertEquals("Enfant d'Atome", atom.getNom());
         assertNotNull(atom.getHistoire());
