@@ -8,11 +8,13 @@ import eu.nicosworld.falloutback.infrastructure.persistence.repository.namegener
 import eu.nicosworld.falloutback.infrastructure.persistence.repository.namegenerator.LastNameRepository;
 import eu.nicosworld.falloutback.infrastructure.persistence.repository.namegenerator.SuperMutantNameRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@Profile("!test")
 public class NameInitializer implements CommandLineRunner {
 
     private final FirstNameRepository firstNameRepository;
